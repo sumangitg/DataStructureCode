@@ -161,9 +161,8 @@ void dynarray:: get(int index)
         cout<<"Invalid index."<<endl;
     }
     else
-    {
         cout<<*(ptr+index)<<endl;
-    }
+    
 }
 
 int main(void)

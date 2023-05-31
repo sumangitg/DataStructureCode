@@ -1,0 +1,203 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+     int data;
+     node *next;
+};
+class sll{
+    private:
+     node *start;
+     public:
+      sll();                        //----------line no-> 34
+      void InsertBegin(int);        //----------line no-> 91
+      void InsertEnd(int);          //----------line no-> 74
+      void InsertAfter(int,node*);  //----------line no-> 99
+      void DeleteBegin();           //----------line no-> 173
+      void DeleteSpecific(node*);   //----------line no-> 108
+      void DeleteEnd();             //----------line no-> 154
+      node* SearchNode(int);        //----------line no-> 142
+      void ShowData();              //----------line no-> 127
+      int CountItems();             //----------line no-> 62
+      void ReverseList();           //----------line no-> 49
+      bool empty();                 //----------line no-> 27
+      ~sll();                       //----------line no-> 39
+};
+
+bool sll:: empty()
+{
+    if(start==NULL)
+        return true;
+    return false;
+}
+
+sll:: sll()
+{
+    start=NULL;
+}
+
+sll:: ~sll()
+{
+    while(start)
+        {
+            node* store=start->next;
+            delete start;
+            start=store;
+        }
+}
+
+void sll::ReverseList()
+{
+    node* store,*prev=NULL;
+    while(start)
+    {
+        store=start->next;
+        start->next=prev;
+        prev=start;
+        start=store;
+    }
+    start=prev;
+}
+
+int sll::CountItems()
+{
+    int count=0;
+    node* traverse=start;
+    while(traverse)
+    {
+        count++;
+        traverse=traverse->next;
+    }
+    return count;
+}
+
+void sll:: InsertEnd(int element)
+{
+    node* n=new node;
+    n->data=element;
+    n->next=NULL;
+    if(start==NULL)
+        start=n;
+    else{
+    node* traverse=start;
+    while(traverse->next)
+    {
+        traverse=traverse->next;
+    }
+    traverse->next=n;
+    }
+}
+
+void sll:: InsertBegin(int element)
+{
+    node* n=new node;
+    n->data=element;
+    n->next=start;
+    start=n;
+}
+
+void sll:: InsertAfter(int element,node* ptr)
+{
+    node* n=new node;
+    n->data=element;
+    n->next=ptr->next;
+    ptr->next=n;
+    
+}
+
+void sll:: DeleteSpecific(node* ptr)
+{
+    
+    node *temp=start;
+    node *store,*prev=NULL;
+    while(temp!=ptr)
+    {   
+        prev=temp; 
+        temp=temp->next;
+    }
+    store=temp->next;
+    delete temp;
+    if(prev)
+        prev->next=store;
+    else
+        start=store;
+    
+}
+
+void sll:: ShowData()
+{
+    if(empty())
+        cout<<"list is empty."<<endl;
+    else
+    {
+        node *traverse=start;
+        while(traverse)
+        {
+            cout<<traverse->data<<endl;
+            traverse=traverse->next;
+        }
+    }
+}
+
+node* sll:: SearchNode(int element)
+{
+    node *traverse=start;
+    while(traverse)
+    {
+        if(element==traverse->data)
+            return traverse;
+        traverse=traverse->next;
+    }
+    return NULL;
+}
+
+void sll:: DeleteEnd()
+{
+    if(empty())
+        cout<<"UnderFlow."<<endl;
+    else if(start->next==NULL)
+    {
+        delete start;
+        start=NULL;
+    }
+    else
+    {
+        node* traverse= start;
+        while(traverse->next->next)
+            traverse=traverse->next;
+        delete traverse->next->next;
+        traverse->next=NULL;
+    }
+}
+
+void sll:: DeleteBegin()
+{
+    if(empty())
+        cout<<"UnderFlow."<<endl;
+    else{
+        node* store=start->next;
+        delete start;
+        start=store;
+    }
+}
+
+int main()
+{
+    //sll s;
+    //s.InsertBegin(1);
+    //s.InsertBegin(2);
+    //s.InsertBegin(3);
+    //s.InsertEnd(1);
+    //s.InsertEnd(2);
+    //s.InsertEnd(3);
+    //s.InsertAfter(4,s.SearchNode(1));
+    //s.ShowData();
+    //s.DeleteBegin();
+    //s.DeleteEnd();
+    //s.DeleteSpecific(s.SearchNode(1));
+    //s.ReverseList();
+    //cout<<endl;
+    //cout<<s.CountItems();
+    //s.ShowData();
+    //return 0;
+}

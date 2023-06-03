@@ -1,0 +1,194 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+    int item;
+    node* next;
+};
+
+class Cll{
+    private:
+        node* last;
+    public:
+        Cll();                        //---------line no-> 177
+        void InsertAtBegin(int);      //---------line no-> 141
+        void InsertAtLast(int);       //---------line no-> 126
+        node* search(int);            //---------line no-> 157
+        void InsertAfter(int,node*);  //---------line no-> 111
+        void DeleteLast();            //---------line no-> 84
+        void DeleteFirst();           //---------line no-> 67
+        void Deletespecific(node*);   //---------line no-> 47
+        ~Cll();                       //---------line no-> 41
+        void ShowList();              //---------line no-> 24
+};
+
+void Cll::ShowList()
+{
+    if(last==NULL)
+        cout<<"list empty."<<endl;
+    else
+    {
+    node* t=last->next;
+    while(1)
+    {
+        cout<<t->item<<endl;
+        if(t->next==last->next)
+            break;
+        t=t->next;
+    }
+    }
+}
+
+Cll::~Cll()
+{
+    while(last!=NULL)
+        DeleteLast();
+}
+
+void Cll::Deletespecific(node* t)
+{
+    if(last==NULL)
+        cout<<"list is empty."<<endl;
+    else if(last->next==t)
+        DeleteFirst();
+    else if (last==t)
+        DeleteLast();
+    else
+    {
+        node* p=last;
+        while(p->next!=t)
+        {
+            p=p->next;
+        }
+        p->next=t->next;
+        delete t;
+    }
+}
+
+void Cll::DeleteFirst()
+{
+    if(last==NULL)
+        cout<<"list is empty."<<endl;
+    else if(last->next==last)
+    {
+        delete last;
+        last=NULL;
+    }
+    else
+    {
+        node* t=last->next->next;
+        delete last->next;
+        last->next=t;
+    }
+}
+
+void Cll::DeleteLast()
+{
+    if(last==NULL)
+        cout<<"list is empty."<<endl;
+    else
+    {
+        if(last->next==last)
+        {
+            delete last;
+            last=NULL;
+        }
+        else
+        {
+            node* t=last;
+            while(t->next!=last)
+                t=t->next;
+            t->next=last->next;
+           
+            delete last;
+             last=t;
+        }
+    }
+    
+
+    
+}
+
+void Cll::InsertAfter(int data ,node* t)
+{
+    node* n=new node;
+    n->item=data;
+    if(last->next==last)
+    {
+    n->next=last;
+    last=n;
+    }
+    else
+        n->next=t->next;
+    t->next=n;
+
+}
+
+void Cll::InsertAtLast(int data)
+{
+    node* n=new node;
+    n->item=data;
+    if(last==NULL)
+        n->next=n;
+    else
+    {
+        n->next=last->next;
+        last->next=n;
+    }
+    last=n;
+
+}
+
+void Cll::InsertAtBegin(int data)
+{
+    node* n=new node;
+    n->item=data;
+    if(last==NULL)
+    {
+        n->next=n;
+         last=n;
+    }
+    else{
+        n->next=last->next->next;
+        last->next=n;
+    }
+   
+}
+
+node* Cll::search(int data)
+{
+    if(last==NULL)
+        cout<<"list is empty."<<endl;
+    else
+    {
+        node* t=last->next;
+        while(1)
+        {
+            if(t->item==data)
+                return t;
+            if(t->next==last->next)
+                break;
+            t=t->next;
+        }
+        return NULL;
+    }
+            
+}
+
+Cll:: Cll()
+{
+    last=NULL;
+}
+
+int main()
+{
+    //Cll ob;
+    //ob.InsertAtBegin(9);
+    //ob.InsertAtLast(8);
+    //ob.InsertAtLast(7);
+    //ob.ShowList();
+    
+    //cout<<endl;
+    //ob.Deletespecific(ob.search(8));
+    //ob.ShowList();
+    //return 0;
+}

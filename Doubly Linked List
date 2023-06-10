@@ -1,0 +1,200 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+        node* prev;
+        node* next;
+        int item;
+};
+
+class dll{
+    private:
+        node* start;
+    public:
+        dll();                         //-----------line no-> 27
+        void insertatfirst(int);       //-----------line no-> 32
+        void showlist();               //-----------line no-> 49
+        void insertatlast(int);        //-----------line no-> 67
+        node* search(int);             //-----------line no-> 89
+        void insertafter(int ,node*);  //-----------line no-> 101
+        void deletefirst();            //-----------line no-> 118
+        void deletelast();             //-----------line no-> 136
+        void deletespecific(node*);    //-----------line no-> 157
+        void showback(node*);          //-----------line no-> 178
+        ~dll();                        //-----------line no-> 172
+};
+
+dll:: dll()
+{
+    start=NULL;
+}
+
+void dll::insertatfirst(int data)
+{
+    node* n=new node;
+    n->item=data;
+    n->prev=NULL;
+    n->next=start;
+    if(start==NULL)
+    {
+        start=n;
+    }
+    else
+    {
+    start->prev=n;
+    start=n;
+    }
+}
+
+void dll::showlist()
+{
+    if(start==NULL)
+    {  
+        cout<<"list is empty."<<endl;
+
+    }
+    else
+    {
+    node* t=start;
+    while(t!=NULL)
+    {
+        cout<<t->item<<endl;
+        t=t->next;
+    }
+    }
+}
+
+void dll::insertatlast(int data)
+{
+    node* n=new node;
+    n->next=NULL;
+    n->item=data;
+    node* t=start;
+    if(start==NULL)
+    {
+        n->prev=NULL;
+        start=n;
+    }
+    else
+    {
+        while(t->next!=NULL)
+        {
+             t=t->next;
+        }
+        n->prev=t;
+        t->next=n;
+    }
+}
+
+node* dll::search(int data)
+{
+    node* t=start;
+    while(t!=NULL)
+    {
+        if(t->item==data)
+            return t;
+        t=t->next;
+    }
+    return t;
+}
+
+void dll::insertafter(int data,node* ptr)
+{
+    node* n=new node;
+    n->item=data;
+    n->next=ptr->next;
+    n->prev=ptr;
+    if(ptr->next==NULL)
+    {
+        ptr->next=n;
+    }
+    else
+    {
+    ptr->next->prev=n;
+    ptr->next=n;
+    }
+}
+
+void dll::deletefirst()
+{
+    if(start==NULL)
+        cout<<"\n underflow"<<endl;
+    else if(start->next==NULL)
+    {
+        delete start;
+        start=NULL;
+    }
+    else
+    {
+        node* t=start->next;
+        delete start;
+        t->prev=NULL;
+        start=t;
+    }
+}
+
+void dll::deletelast()
+{
+    if(start==NULL)
+        cout<<"\n underflow"<<endl;
+    else if(start->next==NULL)
+    {
+        delete start;
+        start=NULL;
+    }
+    else
+    {
+        node* t=start;
+        while(t->next!=NULL)
+        {
+            t=t->next;
+        }
+        t->prev->next=NULL;
+        delete t;
+    }
+}
+
+void dll::deletespecific(node* ptr)
+{
+    if(ptr->prev==NULL)
+        deletefirst();
+    else if(ptr->next==NULL)
+        deletelast();
+    else{
+        ptr->prev->next=ptr->next;
+        ptr->next->prev=ptr->prev;
+        delete ptr;
+    }
+
+
+}
+
+dll::~dll()
+{
+    while(start!=NULL)
+        deletefirst();
+}
+
+void dll::showback(node* ptr)
+{
+    while(ptr!=NULL)
+    {
+        cout<<ptr->item<<endl;
+        ptr=ptr->prev;
+    }
+
+}
+
+int main()
+{
+    //dll ob;
+    //ob.insertatfirst(8);
+    //ob.insertatlast(9);
+    
+    //ob.insertafter(3,ob.search(9));
+    //ob.insertafter(5,ob.search(8));
+    //ob.showback(ob.search(3));
+    //ob.showlist();
+
+    //return 0;
+}

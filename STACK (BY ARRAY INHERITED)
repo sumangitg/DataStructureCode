@@ -1,0 +1,136 @@
+#include"array_adt.cpp"
+#include<iostream>
+using namespace std;
+class stack:private Array
+{
+    public:
+        stack(int);                 //-----line no-> 76
+        stack(stack &);             //-----line no-> 24
+        void push(int);             //-----line no-> 81
+        int peek();                 //-----line no-> 66
+        void pop();                 //-----line no-> 58
+        ~stack();                   //-----line no-> 53
+        virtual bool isFull();      //-----line no-> 48
+        virtual bool isEmpty();     //-----line no-> 43
+        int getStackSize();         //-----line no-> 27
+        void operator=(stack &);    //-----line no-> 19
+};
+
+void stack:: operator=(stack &s)
+{
+    Array:: operator=(s);
+}
+
+stack:: stack(stack &s):Array(s)
+{ }
+
+int stack:: getStackSize()
+{
+    return getCapacity();
+}
+
+void reverseStack(stack &s1)
+{
+    stack s2(s1.getStackSize());
+    while(! s1.isEmpty())
+    {
+        s2.push(s1.peek());
+        s1.pop();
+    }
+    s1=s2;
+}
+
+bool stack:: isEmpty()
+{
+    return Array::isEmpty();
+}
+
+bool stack:: isFull()
+{
+    return Array::isFull();
+}
+
+stack:: ~stack()
+{
+
+}
+
+void stack:: pop()
+{
+    if(isEmpty())
+        cout<<"stack Underflow"<<endl;
+    else
+        del(count()-1);
+}
+
+int stack:: peek()
+{
+    if(!isEmpty())
+        return get(count()-1);
+    else
+    {
+        cout<<"\n stack is Empty";
+    }
+}
+
+stack:: stack(int cap):Array(cap)
+{
+
+}
+
+void stack:: push(int data)
+{
+    if(!isFull())
+        append(data);
+    else
+        cout<<"stack is overflow"<<endl;
+}
+
+void pushInstack(stack &s, stack &minstack, int data)
+{
+    s.push(data);
+    if(minstack.isEmpty())
+        minstack.push(data);
+    else
+    {
+        if(data>minstack.peek())
+            minstack.push(minstack.peek());
+        else
+            minstack.push(data);
+    }
+}
+
+void popFromstack(stack &s, stack &minStack)
+{
+    s.pop();
+    minStack.pop();
+}
+
+int main()
+{
+    //stack s(5);
+    //stack minStack(5);
+    //pushInstack(s,minStack,50);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //pushInstack(s,minStack,40);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //pushInstack(s,minStack,60);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //pushInstack(s,minStack,70);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //pushInstack(s,minStack,30);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //cout<<endl<<"Poping Start";
+    //popFromstack(s,minStack);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //popFromstack(s,minStack);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //popFromstack(s,minStack);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //popFromstack(s,minStack);
+    //cout<<endl<<"Current minimum Value is "<<minStack.peek();
+    //popFromstack(s,minStack);
+    //minStack.peek();
+    //cout<<endl;
+    //return 0;
+}

@@ -1,0 +1,115 @@
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+        int data;
+        node *next;
+};  
+class stack{
+    private:
+        node *top;
+    public:
+        stack();                //-------line no-> 85
+        void push(int);         //-------line no-> 93
+        void peek();            //-------line no-> 76
+        bool underflow();       //-------line no-> 69
+        void pop();             //-------line no-> 58
+        ~stack();               //-------line no-> 48
+        void reverse();         //-------line no-> 33
+        void showelement();     //-------line no-> 23
+};
+
+void stack:: showelement()
+{
+    node *traverse=top;
+    while(traverse)
+    {
+        cout<<traverse->data <<endl;
+        traverse=traverse->next;
+    }
+}
+
+void stack:: reverse()
+{
+    if(top!=NULL){
+        node *prev=NULL;
+        while(top->next)
+        {
+            node *store=top->next;
+            top->next=prev;
+            prev=top;
+            top=store;
+        }
+        top->next=prev;
+    }
+}
+
+stack:: ~stack()
+{
+    while(top)
+    {
+        node *store=top->next;
+        delete top;
+        top=store;
+    }
+}
+
+void stack:: pop()
+{
+    if(underflow())
+        cout<<"stack is empty."<<endl;
+    else{
+        node *store=top->next;
+        delete top;
+        top=store;
+    }
+}
+
+bool stack:: underflow()
+{
+    if(top==NULL)
+        return true;
+    return false;
+}
+
+void stack:: peek()
+{
+    if(underflow())
+        cout<<"stack is empty."<<endl;
+    else
+        cout<<top->data<<endl;
+        
+}
+
+void stack:: push(int element)
+{
+    node *n =new node;
+    n->data=element;
+    n->next=top;
+    top=n;
+}
+
+stack:: stack()
+{
+    top=NULL;
+}
+
+int main()
+{
+    //stack s;
+    //s.push(1);
+    //s.push(2);
+    //s.push(3);
+    //s.push(4);
+    //s.push(5);
+    //s.showelement();
+    //s.pop();
+    //cout<<endl;
+    //s.reverse();
+    //s.showelement();
+    //cout<<endl;
+    //s.peek();
+    //cout<<s.underflow()<<endl;
+    //return 0;
+}
